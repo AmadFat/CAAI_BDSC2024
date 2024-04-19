@@ -5,17 +5,17 @@ skip_gram is available now.
 The folder structured should follow:
 
 
---your_folder
+|--your_folder
 
-  |--raw2idx.py
+    |--raw2idx.py
   
-  |--sentiment_analysis.py
+    |--sentiment_analysis.py
   
-  |--skip_gram.py
+    |--skip_gram.py
   
-  |--database
+    |--database
   
-     |--bag_of_words
-     
-        |--tsv and csv
+        |--bag_of_words
+        
+            |--tsv and csv
         
