@@ -17,6 +17,11 @@ classification_model_path = './bert-base-personality'
 classification_tokenizer = BertTokenizer.from_pretrained(classification_model_path)
 classification_model = BertForSequenceClassification.from_pretrained(classification_model_path).cuda()
 
+lexicon = {'Extroversion': 0, 'Neuroticism': 1, 'Agreeableness': 2, 'Conscientiousness': 3, 'Openness': 4}
+json_string = json.dumps(lexicon)
+with open('lexicon.json', 'w') as file:
+    file.write(json_string)
+
 for i in tqdm(range(len(data) // chunk_size)):
     result = assembled_pipeline(data[i*chunk_size: i*chunk_size+chunk_size],
                                 translation_tokenizer,
@@ -24,9 +29,5 @@ for i in tqdm(range(len(data) // chunk_size)):
                                 classification_tokenizer,
                                 classification_model,)
     prob = np.vstack((prob, result)) if prob is not None else result
+    np.savetxt('analysis_prob.csv', prob, delimiter=',', fmt='%f')
 
-lexicon = {'Extroversion': 0, 'Neuroticism': 1, 'Agreeableness': 2, 'Conscientiousness': 3, 'Openness': 4}
-np.savetxt('analysis_prob.csv', prob, delimiter=',', fmt='%f')
-json_string = json.dumps(lexicon)
-with open('lexicon.json', 'w') as file:
-    file.write(json_string)
