@@ -7,7 +7,7 @@ from transformers import AutoTokenizer, BertForSequenceClassification, AutoModel
 
 data_path = './data/douban_movie_short_comment.csv'
 data = pd.read_csv(data_path)['Comment'].tolist()
-chunk_size, prob = 32, None
+chunk_size, prob = 2048, None
 
 translation_model_path = './opus-mt-zh-en'
 translation_tokenizer = AutoTokenizer.from_pretrained(translation_model_path)
