@@ -18,6 +18,6 @@ def assembled_pipeline(raw_texts):
 
             tokenized_texts = classification_tokenizer(translated_texts, max_length=128, truncation=True, padding=True, return_tensors="pt")
             outputs = classification_model(**tokenized_texts)
-    predictions = outputs.logits.softmax(dim=-1).numpy()
+    predictions = outputs.logits.sigmoid().numpy()
     label_lexicon = {'Extroversion': 0, 'Neuroticism': 1, 'Agreeableness': 2, 'Conscientiousness': 3, 'Openness': 4}
     return predictions, label_lexicon
